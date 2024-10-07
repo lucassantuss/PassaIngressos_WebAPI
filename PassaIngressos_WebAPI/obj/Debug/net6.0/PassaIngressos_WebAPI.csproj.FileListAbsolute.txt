@@ -1,0 +1,140 @@
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.csproj.AssemblyReference.cache
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.AssemblyInfoInputs.cache
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.AssemblyInfo.cs
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.csproj.CoreCompileInputs.cache
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\appsettings.Development.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\appsettings.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.exe
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.deps.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.runtimeconfig.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.pdb
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Server.Kestrel.Https.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.PassaIngressos_WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.PassaIngressos_WebAPI.props
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.PassaIngressos_WebAPI.props
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.PassaIngressos_WebAPI.props
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets.pack.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets.build.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets.development.json
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\scopedcss\bundle\PassaIngressos_WebAPI.styles.css
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.csproj.CopyComplete
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\refint\PassaIngressos_WebAPI.dll
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.pdb
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.genruntimeconfig.cache
+C:\Users\081210009\3D Objects\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\ref\PassaIngressos_WebAPI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\appsettings.Development.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\appsettings.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.exe
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.deps.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.runtimeconfig.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\PassaIngressos_WebAPI.pdb
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\BCrypt.Net-Next.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Server.Kestrel.Https.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Server.Kestrel.Transport.Abstractions.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Data.SqlClient.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Extensions.Caching.Memory.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Identity.Client.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.OpenApi.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Configuration.ConfigurationManager.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Diagnostics.DiagnosticSource.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Drawing.Common.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Runtime.Caching.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Security.Cryptography.ProtectedData.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Security.Permissions.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\System.Windows.Extensions.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-arm\native\Microsoft.Data.SqlClient.SNI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-arm64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\unix\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Drawing.Common.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.csproj.AssemblyReference.cache
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.AssemblyInfoInputs.cache
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.AssemblyInfo.cs
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.csproj.CoreCompileInputs.cache
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.MvcApplicationPartsAssemblyInfo.cache
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.sourcelink.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets.build.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets.development.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.PassaIngressos_WebAPI.Microsoft.AspNetCore.StaticWebAssets.props
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.PassaIngressos_WebAPI.props
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.PassaIngressos_WebAPI.props
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.PassaIngressos_WebAPI.props
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\staticwebassets.pack.json
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\scopedcss\bundle\PassaIngressos_WebAPI.styles.css
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIng.0DC1CBFC.Up2Date
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\refint\PassaIngressos_WebAPI.dll
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.pdb
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\PassaIngressos_WebAPI.genruntimeconfig.cache
+C:\GITHUB\PassaIngressos\Application\Back-End\PassaIngressos_WebAPI\obj\Debug\net6.0\ref\PassaIngressos_WebAPI.dll
