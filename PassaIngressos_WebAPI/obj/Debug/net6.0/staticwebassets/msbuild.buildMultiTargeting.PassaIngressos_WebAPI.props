@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\PassaIngressos_WebAPI.props" />
+</Project>
