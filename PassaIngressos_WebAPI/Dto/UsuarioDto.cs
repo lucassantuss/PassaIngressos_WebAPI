@@ -9,6 +9,7 @@
         public string NomePessoa { get; set; }
 
         // Campos Opcionais
+        public DateTime? DataNascimento { get; set; }
         public string CPF { get; set; }
         public string RG { get; set; }
         public int? IdArquivoFoto { get; set; }

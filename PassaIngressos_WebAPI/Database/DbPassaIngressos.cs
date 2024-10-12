@@ -54,6 +54,11 @@ namespace PassaIngressos_WebAPI.Database
                         .HasForeignKey(u => u.IdPessoaAnunciante);
 
             modelBuilder.Entity<Ingresso>()
+                        .HasOne(u => u.PessoaComprador)
+                        .WithMany()
+                        .HasForeignKey(u => u.IdPessoaComprador);
+
+            modelBuilder.Entity<Ingresso>()
                         .HasOne(u => u.Evento)
                         .WithMany()
                         .HasForeignKey(u => u.IdEvento);

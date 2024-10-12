@@ -78,10 +78,29 @@ namespace PassaIngressos_WebAPI.Controllers
         {
             var feedbacks = await _dbPassaIngressos.Feedbacks
                                                    .Where(f => f.IdPessoa == idPessoa)
+                                                   .Select(xs => new FeedbackRetornoDto
+                                                   {
+                                                       IdFeedback = xs.IdFeedback,
+                                                       DescricaoFeedback = xs.DescricaoFeedback,
+                                                       IdPessoa = xs.IdPessoa
+                                                   })
                                                    .ToListAsync();
 
             if (feedbacks == null || feedbacks.Count == 0)
                 return NotFound("Nenhum feedback encontrado para essa pessoa.");
+
+            var pessoas = await _dbPassaIngressos.Pessoas
+                                                 .Include(xs => xs.ArquivoFoto)
+                                                 .ToListAsync();
+
+            foreach (var fb in feedbacks)
+            {
+                var pessoaSelecionada = pessoas.Find(xs => xs.IdPessoa == fb.IdPessoa);
+
+                fb.NomePessoa = pessoaSelecionada.Nome;
+                fb.IdadePessoa = CalcularIdade(pessoaSelecionada.DataNascimento.Value);
+                fb.IdArquivoFoto = pessoaSelecionada.IdArquivoFoto;
+            }
 
             return Ok(feedbacks);
         }
@@ -98,10 +117,25 @@ namespace PassaIngressos_WebAPI.Controllers
             feedbackExistente.DescricaoFeedback = feedbackAtualizado.DescricaoFeedback;
             feedbackExistente.IdPessoa = feedbackAtualizado.IdPessoa;
 
+            var pessoa = await _dbPassaIngressos.Pessoas
+                                                .Where(xs => xs.IdPessoa == feedbackExistente.IdPessoa)
+                                                .FirstOrDefaultAsync();
+
+            FeedbackRetornoDto feedbackRetorno = new FeedbackRetornoDto
+            {
+                IdFeedback = feedbackExistente.IdFeedback,
+                DescricaoFeedback = feedbackExistente.DescricaoFeedback,
+
+                IdPessoa = feedbackExistente.IdPessoa,
+                NomePessoa = pessoa.Nome,
+                IdadePessoa = CalcularIdade(pessoa.DataNascimento.Value),
+                IdArquivoFoto = pessoa.IdArquivoFoto,
+            };
+
             _dbPassaIngressos.Feedbacks.Update(feedbackExistente);
             await _dbPassaIngressos.SaveChangesAsync();
 
-            return Ok(feedbackExistente);
+            return Ok(feedbackRetorno);
         }
 
         // Método para excluir Feedback

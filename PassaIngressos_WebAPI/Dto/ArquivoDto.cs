@@ -2,8 +2,6 @@
 {
     public class ArquivoDto
     {
-        public int IdArquivo { get; set; }
-
         public byte[] ConteudoArquivo { get; set; }
 
         public string Extensao { get; set; }
