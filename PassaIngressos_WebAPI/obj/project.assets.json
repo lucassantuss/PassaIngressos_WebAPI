@@ -3877,11 +3877,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.csproj",
+      "projectUniqueName": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.csproj",
       "projectName": "PassaIngressos_WebAPI",
-      "projectPath": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.csproj",
+      "projectPath": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.csproj",
       "packagesPath": "C:\\Users\\lucas\\.nuget\\packages\\",
-      "outputPath": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\obj\\",
+      "outputPath": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\lucas\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -3956,7 +3956,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403\\RuntimeIdentifierGraph.json"
       }
     }
   }

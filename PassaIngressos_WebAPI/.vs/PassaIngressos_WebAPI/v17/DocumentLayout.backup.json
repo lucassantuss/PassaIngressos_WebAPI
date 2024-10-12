@@ -1,18 +1,22 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\",
+  "WorkspaceRootPath": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos\\application\\back-end\\passaingressos_webapi\\database\\dbpassaingressos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:database\\dbpassaingressos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos_webapi\\passaingressos_webapi\\controllers\\tabelageralcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:controllers\\tabelageralcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos\\application\\back-end\\passaingressos_webapi\\conversor\\conversorevento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:conversor\\conversorevento.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos_webapi\\passaingressos_webapi\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos\\application\\back-end\\passaingressos_webapi\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos_webapi\\passaingressos_webapi\\controllers\\eventoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:controllers\\eventoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|c:\\github\\passaingressos_webapi\\passaingressos_webapi\\controllers\\arquivocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C8F931-E2CA-4EF8-8DEF-4C55775AA1EB}|PassaIngressos_WebAPI.csproj|solutionrelative:controllers\\arquivocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,41 +38,54 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "DbPassaIngressos.cs",
-              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\Database\\DbPassaIngressos.cs",
-              "RelativeDocumentMoniker": "Database\\DbPassaIngressos.cs",
-              "ToolTip": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\Database\\DbPassaIngressos.cs",
-              "RelativeToolTip": "Database\\DbPassaIngressos.cs",
-              "ViewState": "AgIAABcAAAAAAAAAAAAAAGMAAAAFAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "FeedbackController.cs",
+              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\FeedbackController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FeedbackController.cs",
+              "ToolTip": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\FeedbackController.cs",
+              "RelativeToolTip": "Controllers\\FeedbackController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-27T01:23:39.832Z",
+              "WhenOpened": "2024-10-12T02:36:26.226Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ConversorEvento.cs",
-              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\Conversor\\ConversorEvento.cs",
-              "RelativeDocumentMoniker": "Conversor\\ConversorEvento.cs",
-              "ToolTip": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\Conversor\\ConversorEvento.cs",
-              "RelativeToolTip": "Conversor\\ConversorEvento.cs",
+              "DocumentIndex": 3,
+              "Title": "ArquivoController.cs",
+              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\ArquivoController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ArquivoController.cs",
+              "ToolTip": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\ArquivoController.cs",
+              "RelativeToolTip": "Controllers\\ArquivoController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-09-27T01:23:31.927Z",
+              "WhenOpened": "2024-10-12T02:36:19.72Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TabelaGeralController.cs",
+              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\TabelaGeralController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TabelaGeralController.cs",
+              "ToolTip": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\TabelaGeralController.cs",
+              "RelativeToolTip": "Controllers\\TabelaGeralController.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAAAGoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-12T02:36:18.137Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Properties\\launchSettings.json",
-              "ToolTip": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Properties\\launchSettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-09-27T01:19:32.397Z",
+              "Title": "EventosController.cs",
+              "DocumentMoniker": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\EventosController.cs",
+              "RelativeDocumentMoniker": "Controllers\\EventosController.cs",
+              "ToolTip": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\Controllers\\EventosController.cs",
+              "RelativeToolTip": "Controllers\\EventosController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-11T23:55:54.16Z",
               "EditorCaption": ""
             }
           ]

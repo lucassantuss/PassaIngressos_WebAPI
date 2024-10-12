@@ -201,6 +201,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.ArquivoController",
+    "Method": "PesquisarArquivoPorId",
+    "RelativePath": "Arquivo/PesquisarArquivoPorId/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "PassaIngressos_WebAPI.Controllers.EventosController",
     "Method": "AlterarIngresso",
     "RelativePath": "Eventos/AlterarIngresso/{idIngresso}",
@@ -339,6 +355,26 @@
   },
   {
     "ContainingType": "PassaIngressos_WebAPI.Controllers.EventosController",
+    "Method": "ListarEventosRelacionados",
+    "RelativePath": "Eventos/ListarEventosRelacionados",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.EventosController",
+    "Method": "ListarProximosEventos",
+    "RelativePath": "Eventos/ListarProximosEventos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.EventosController",
     "Method": "PesquisarEvento",
     "RelativePath": "Eventos/PesquisarEvento/{idEvento}",
     "HttpMethod": "GET",
@@ -355,6 +391,22 @@
   },
   {
     "ContainingType": "PassaIngressos_WebAPI.Controllers.EventosController",
+    "Method": "PesquisarEventosPorNome",
+    "RelativePath": "Eventos/PesquisarEventosPorNome/{nomeEvento}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nomeEvento",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.EventosController",
     "Method": "VenderIngresso",
     "RelativePath": "Eventos/VenderIngresso",
     "HttpMethod": "POST",
@@ -364,6 +416,159 @@
       {
         "Name": "ingressoDto",
         "Type": "PassaIngressos_WebAPI.Dto.IngressoDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.FeedbackController",
+    "Method": "AlterarFeedback",
+    "RelativePath": "Feedback/AlterarFeedback/{idFeedback}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idFeedback",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "feedbackAtualizado",
+        "Type": "PassaIngressos_WebAPI.Dto.FeedbackDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.FeedbackController",
+    "Method": "CriarFeedback",
+    "RelativePath": "Feedback/CriarFeedback",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "feedbackDto",
+        "Type": "PassaIngressos_WebAPI.Dto.FeedbackDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.FeedbackController",
+    "Method": "ExcluirFeedback",
+    "RelativePath": "Feedback/ExcluirFeedback/{idFeedback}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idFeedback",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.FeedbackController",
+    "Method": "ListarFeedbacks",
+    "RelativePath": "Feedback/ListarFeedbacks",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.FeedbackController",
+    "Method": "PesquisarFeedbacksPorPessoa",
+    "RelativePath": "Feedback/PesquisarFeedbacksPorPessoa/{idPessoa}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idPessoa",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.TabelaGeralController",
+    "Method": "AdicionarItem",
+    "RelativePath": "TabelaGeral/AdicionarItem",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "novoItemDto",
+        "Type": "PassaIngressos_WebAPI.Dto.ItemTabelaGeralDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.TabelaGeralController",
+    "Method": "CriarTabelaGeral",
+    "RelativePath": "TabelaGeral/CriarTabelaGeral",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "novaTabelaDto",
+        "Type": "PassaIngressos_WebAPI.Dto.TabelaGeralDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.TabelaGeralController",
+    "Method": "ExcluirItem",
+    "RelativePath": "TabelaGeral/ExcluirItem/{idItem}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "idItem",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.TabelaGeralController",
+    "Method": "ListarTabelasGerais",
+    "RelativePath": "TabelaGeral/ListarTabelasGerais",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "PassaIngressos_WebAPI.Controllers.TabelaGeralController",
+    "Method": "PesquisarItensPorTabela",
+    "RelativePath": "TabelaGeral/PesquisarItensPorTabela/{nomeTabela}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nomeTabela",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

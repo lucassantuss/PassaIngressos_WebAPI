@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gEjy6xVMiEI=",
+  "dgSpecHash": "BeBDP/883hE=",
   "success": true,
-  "projectFilePath": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.csproj",
+  "projectFilePath": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucas\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\lucas\\.nuget\\packages\\microsoft.aspnetcore\\2.2.0\\microsoft.aspnetcore.2.2.0.nupkg.sha512",

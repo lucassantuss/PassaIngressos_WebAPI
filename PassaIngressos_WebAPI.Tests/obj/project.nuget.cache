@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "kMdEPg42CAQ=",
+  "dgSpecHash": "Zddh6xj08R0=",
   "success": true,
-  "projectFilePath": "C:\\GITHUB\\PassaIngressos\\Application\\Back-End\\PassaIngressos_WebAPI.Tests\\PassaIngressos_WebAPI.Tests.csproj",
+  "projectFilePath": "C:\\GITHUB\\PassaIngressos_WebAPI\\PassaIngressos_WebAPI.Tests\\PassaIngressos_WebAPI.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lucas\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\lucas\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",

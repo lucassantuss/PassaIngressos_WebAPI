@@ -84,6 +84,46 @@ namespace PassaIngressos_WebAPI.Controllers
             return Ok(eventos);
         }
 
+        // Método para listar os Próximos Eventos
+        [HttpGet("ListarProximosEventos")]
+        public async Task<IActionResult> ListarProximosEventos()
+        {
+            var proximosEventos = await _dbPassaIngressos.Eventos
+                                                 .Take(3)
+                                                 .Select(xs => new ProximoEventoDto
+                                                 {
+                                                     NomeEvento = xs.NomeEvento,
+                                                     Ano = xs.DataHoraEvento.Value.Year,
+                                                     IdArquivoEvento = xs.IdArquivoEvento,
+                                                 })
+                                                 .ToListAsync();
+
+            return Ok(proximosEventos);
+        }
+
+        // Método para listar os Eventos Relacionados
+        [HttpGet("ListarEventosRelacionados")]
+        public async Task<IActionResult> ListarEventosRelacionados()
+        {
+            var eventosRelacionados = await _dbPassaIngressos.Eventos
+                                                 .Take(2)
+                                                 .Select(xs => new EventoRelacionadoDto
+                                                 {
+                                                     IdEvento = xs.IdEvento,
+                                                     NomeEvento = xs.NomeEvento,
+                                                     Ano = xs.DataHoraEvento.Value.Year,
+                                                     IdArquivoEvento = xs.IdArquivoEvento,
+                                                 })
+                                                 .ToListAsync();
+
+            var ingressos = await _dbPassaIngressos.Ingressos.ToListAsync();
+
+            foreach (var eventoRel in eventosRelacionados)
+                eventoRel.QuantidadeIngressosDisponiveis = ingressos.Count(xs => xs.IdEvento == eventoRel.IdEvento);
+
+            return Ok(eventosRelacionados);
+        }
+
         // Método para pesquisar Evento específico
         [HttpGet("PesquisarEvento/{idEvento}")]
         public async Task<IActionResult> PesquisarEvento(int idEvento)
@@ -97,6 +137,32 @@ namespace PassaIngressos_WebAPI.Controllers
                 return NotFound("Evento não encontrado.");
 
             return Ok(evento);
+        }
+
+        // Método para pesquisar Eventos específicos
+        [HttpGet("PesquisarEventosPorNome/{nomeEvento}")]
+        public async Task<IActionResult> PesquisarEventosPorNome(string nomeEvento)
+        {
+            var eventos = await _dbPassaIngressos.Eventos
+                               .Where(xs => xs.NomeEvento.Contains(nomeEvento))
+                               .Select(xs => new EventoRelacionadoDto
+                               {
+                                   IdEvento = xs.IdEvento,
+                                   NomeEvento = xs.NomeEvento,
+                                   Ano = xs.DataHoraEvento.Value.Year,
+                                   IdArquivoEvento = xs.IdArquivoEvento
+                               })
+                               .ToListAsync();
+            
+            if (eventos == null)
+                return NotFound("Evento não encontrado.");
+
+            var ingressos = await _dbPassaIngressos.Ingressos.ToListAsync();
+
+            foreach (var evento in eventos)
+                evento.QuantidadeIngressosDisponiveis = ingressos.Count(xs => xs.IdEvento == evento.IdEvento);
+
+            return Ok(eventos);
         }
 
         #endregion
