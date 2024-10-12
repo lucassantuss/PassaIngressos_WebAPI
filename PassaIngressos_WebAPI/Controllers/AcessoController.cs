@@ -87,18 +87,14 @@ namespace PassaIngressos_WebAPI.Controllers
         public async Task<IActionResult> UsuariosDoPerfil(int idPerfil)
         {
             var listaIdsUsuarios = await _dbPassaIngressos.UsuarioPerfis
-                                        .Where(up => up.IdPerfil == idPerfil)
-                                        .Select(up => up.IdUsuario)
-                                        .ToListAsync();
+                                                          .Where(up => up.IdPerfil == idPerfil)
+                                                          .Select(up => up.IdUsuario)
+                                                          .ToListAsync();
 
             if (listaIdsUsuarios == null || !listaIdsUsuarios.Any())
                 return NotFound("Nenhum usuário encontrado para esse perfil.");
 
             var usuarios = await _dbPassaIngressos.Usuarios
-                                 .Include(u => u.Pessoa)
-                                 .Include(u => u.Pessoa.Sexo)
-                                 .Include(u => u.Pessoa.Sexo.TabelaGeral)
-                                 .Include(u => u.Pessoa.ArquivoFoto)
                                  .Where(xs => listaIdsUsuarios.Contains(xs.IdUsuario))
                                  .ToListAsync();
 
@@ -107,37 +103,6 @@ namespace PassaIngressos_WebAPI.Controllers
             {
                 IdUsuario = u.IdUsuario,
                 Login = u.Login,
-
-                Pessoa = new PessoaDto
-                {
-                    IdPessoa = u.Pessoa.IdPessoa,
-                    Nome = u.Pessoa.Nome,
-                    DataNascimento = u.Pessoa.DataNascimento,
-                    CPF = u.Pessoa.CPF,
-                    RG = u.Pessoa.RG,
-
-                    Sexo = u.Pessoa.Sexo != null ? new ItemTabelaGeralDto
-                    {
-                        IdItemTabelaGeral = u.Pessoa.Sexo.IdItemTabelaGeral,
-                        Sigla = u.Pessoa.Sexo.Sigla,
-                        Descricao = u.Pessoa.Sexo.Descricao,
-
-                        TabelaGeral = u.Pessoa.Sexo.TabelaGeral != null ? new TabelaGeralDto
-                        {
-                            IdTabelaGeral = u.Pessoa.Sexo.TabelaGeral.IdTabelaGeral,
-                            Tabela = u.Pessoa.Sexo.TabelaGeral.Tabela
-                        } : new TabelaGeralDto()
-                    } : new ItemTabelaGeralDto(),
-
-                    ArquivoFoto = u.Pessoa.ArquivoFoto != null ? new ArquivoDto
-                    {
-                        IdArquivo = u.Pessoa.ArquivoFoto.IdArquivo,
-                        ConteudoArquivo = u.Pessoa.ArquivoFoto.ConteudoArquivo,
-                        ContentType = u.Pessoa.ArquivoFoto.ContentType,
-                        Extensao = u.Pessoa.ArquivoFoto.Extensao,
-                        Nome = u.Pessoa.ArquivoFoto.Nome,
-                    } : new ArquivoDto(),
-                }
             }).ToList();
 
             return Ok(usuarioDtos);
@@ -157,8 +122,9 @@ namespace PassaIngressos_WebAPI.Controllers
                 Nome = usuarioDto.NomePessoa,
                 CPF = usuarioDto.CPF,
                 RG = usuarioDto.RG,
-                IdArquivoFoto = usuarioDto.IdArquivoFoto ?? 0,
-                IdTgSexo = usuarioDto.IdTgSexo ?? 0
+                DataNascimento = usuarioDto.DataNascimento,
+                IdArquivoFoto = usuarioDto.IdArquivoFoto ?? null,
+                IdTgSexo = usuarioDto.IdTgSexo ?? null
             };
 
             _dbPassaIngressos.Pessoas.Add(pessoa);
@@ -175,7 +141,17 @@ namespace PassaIngressos_WebAPI.Controllers
             _dbPassaIngressos.Usuarios.Add(usuario);
             await _dbPassaIngressos.SaveChangesAsync();
 
-            return Ok(usuario);
+            // Adicionar Usuário no Perfil USER
+            var usuarioPerfil = new UsuarioPerfil()
+            {
+                IdUsuario = usuario.IdUsuario,
+                IdPerfil = 2 // Perfil USER
+            };
+
+            _dbPassaIngressos.UsuarioPerfis.Add(usuarioPerfil);
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Usuário criado com sucesso!");
         }
 
         // Método para redefinir senha
@@ -208,9 +184,9 @@ namespace PassaIngressos_WebAPI.Controllers
             return Ok("Login realizado com sucesso.");
         }
 
-        // Método para pesquisar usuário
-        [HttpGet("PesquisarUsuario/{login}")]
-        public async Task<IActionResult> PesquisarUsuario(string login)
+        // Método para pesquisar usuário por login
+        [HttpGet("PesquisarUsuarioPorLogin/{login}")]
+        public async Task<IActionResult> PesquisarUsuarioPorLogin(string login)
         {
             var usuario = await _dbPassaIngressos.Usuarios
                                 .Include(u => u.Pessoa)
@@ -231,6 +207,22 @@ namespace PassaIngressos_WebAPI.Controllers
             if (usuario == null)
                 return NotFound("Usuário não encontrado.");
 
+            var usuarioPerfis = await _dbPassaIngressos.UsuarioPerfis
+                                                       .Where(xs => xs.IdUsuario == usuario.IdUsuario)
+                                                       .ToListAsync();
+
+            if (usuarioPerfis == null)
+                return NotFound("Perfis do usuário não encontrados.");
+
+            var usuarioPessoa = await _dbPassaIngressos.Pessoas
+                                                       .Where(xs => xs.IdPessoa == usuario.IdPessoa)
+                                                       .FirstOrDefaultAsync();
+
+            if (usuarioPessoa == null)
+                return NotFound("Pessoa não encontrada.");
+
+            _dbPassaIngressos.Pessoas.Remove(usuarioPessoa);
+            _dbPassaIngressos.UsuarioPerfis.RemoveRange(usuarioPerfis);
             _dbPassaIngressos.Usuarios.Remove(usuario);
             await _dbPassaIngressos.SaveChangesAsync();
 
@@ -258,7 +250,7 @@ namespace PassaIngressos_WebAPI.Controllers
 
         // Método para adicionar Perfil ao IdUsuario
         [HttpPost("AdicionarPerfilAoUsuario/{idUsuario}")]
-        public async Task<IActionResult> AdicionarPerfilAoUsuario(int idUsuario, [FromBody] UsuarioAdicionaPerfilDto adicionaPerfilDto)
+        public async Task<IActionResult> AdicionarPerfilAoUsuario(int idUsuario, [FromBody] PerfilUsuarioDto adicionaPerfilDto)
         {
             var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
             var perfil = await _dbPassaIngressos.Perfis.FindAsync(adicionaPerfilDto.IdPerfil);
@@ -286,6 +278,33 @@ namespace PassaIngressos_WebAPI.Controllers
             await _dbPassaIngressos.SaveChangesAsync();
 
             return Ok("Perfil adicionado ao usuário com sucesso.");
+        }
+
+        // Método para remover Perfil do IdUsuario
+        [HttpDelete("RemoverPerfilDoUsuario/{idUsuario}")]
+        public async Task<IActionResult> RemoverPerfilDoUsuario(int idUsuario, [FromBody] PerfilUsuarioDto removePerfilDto)
+        {
+            var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
+            var perfil = await _dbPassaIngressos.Perfis.FindAsync(removePerfilDto.IdPerfil);
+
+            if (usuario == null)
+                return NotFound("Usuário não encontrado.");
+
+            if (perfil == null)
+                return NotFound("Perfil não encontrado.");
+
+            var usuarioPerfil = await _dbPassaIngressos.UsuarioPerfis
+                                          .Where(xs => xs.IdUsuario == idUsuario)
+                                          .Where(xs => xs.IdPerfil == removePerfilDto.IdPerfil)
+                                          .FirstOrDefaultAsync();
+
+            if (usuarioPerfil == null)
+                return NotFound("Perfil não está associado ao usuário informado.");
+
+            _dbPassaIngressos.UsuarioPerfis.Remove(usuarioPerfil);
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Perfil removido do usuário com sucesso.");
         }
 
         #endregion

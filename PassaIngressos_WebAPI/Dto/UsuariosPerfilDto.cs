@@ -4,7 +4,5 @@
     {
         public int IdUsuario { get; set; }
         public string Login { get; set; }
-
-        public PessoaDto Pessoa { get; set; }
     }
 }

@@ -14,11 +14,17 @@ namespace PassaIngressos_WebAPI.Entity
         [Column("Valor")]
         public decimal? Valor { get; set; }
 
+        [Column("Vendido")]
+        public bool Vendido { get; set; }
+
         [ForeignKey("IdTgTipoIngresso")]
         public ItemTabelaGeral TipoIngresso { get; set; }
 
         [Column("IdPessoaAnunciante")]
         public Pessoa PessoaAnunciante { get; set; }
+
+        [Column("IdPessoaComprador")]
+        public Pessoa PessoaComprador { get; set; }
 
         [Column("IdEvento")]
         public Evento Evento { get; set; }
@@ -30,6 +36,9 @@ namespace PassaIngressos_WebAPI.Entity
 
         [Column("Id_Pessoa_Anunciante")]
         public int IdPessoaAnunciante { get; set; }
+
+        [Column("Id_Pessoa_Comprador")]
+        public int IdPessoaComprador { get; set; }
 
         [Column("Id_Evento")]
         public int IdEvento { get; set; }

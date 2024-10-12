@@ -7,5 +7,7 @@
         public string LocalEvento { get; set; }
 
         public DateTime? DataHoraEvento { get; set; }
+
+        public int? IdArquivoEvento { get; set; }
     }
 }

@@ -21,6 +21,129 @@ namespace PassaIngressos_WebAPI.Controllers
 
         #endregion
 
+        #region Ingresso
+
+        // Método para vender/anunciar o Ingresso
+        [HttpPost("AnunciarIngresso")]
+        public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
+        {
+            var novoEvento = new Evento
+            {
+                NomeEvento = novoIngressoDto.NomeEvento,
+                DataHoraEvento = novoIngressoDto.DataHoraEvento,
+                LocalEvento = novoIngressoDto.LocalEvento,
+                IdArquivoEvento = novoIngressoDto.IdArquivoEvento
+            };
+
+            _dbPassaIngressos.Eventos.Add(novoEvento);
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            var novoIngresso = new Ingresso
+            {
+                IdTgTipoIngresso = novoIngressoDto.IdTipoIngresso,
+                IdPessoaAnunciante = novoIngressoDto.IdPessoaAnunciante,
+                IdEvento = novoEvento.IdEvento,
+                Valor = novoIngressoDto.Valor
+            };
+
+            _dbPassaIngressos.Ingressos.Add(novoIngresso);
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Ingresso colocado à venda com sucesso.");
+        }
+
+        // Método para alterar Ingresso
+        [HttpPut("AlterarIngresso/{idIngresso}")]
+        public async Task<IActionResult> AlterarIngresso(int idIngresso, [FromBody] AlterarIngressoDto ingressoAtualizado)
+        {
+            var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
+
+            if (ingresso == null)
+                return NotFound("Ingresso não encontrado.");
+
+            // Verifica se o TipoIngresso existe
+            var tipoIngressoExistente = await _dbPassaIngressos.ItensTabelaGeral
+                                              .AnyAsync(i => i.IdItemTabelaGeral == ingressoAtualizado.IdTipoIngresso);
+
+            if (!tipoIngressoExistente)
+                return BadRequest("Tipo de ingresso não encontrado.");
+
+            // Valida se o valor do ingresso é maior que 0
+            if (ingressoAtualizado.Valor <= 0)
+                return BadRequest("O valor do ingresso deve ser maior que 0.");
+
+            ingresso.IdTgTipoIngresso = ingressoAtualizado.IdTipoIngresso;
+            ingresso.Valor = ingressoAtualizado.Valor;
+
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok(ingresso);
+        }
+
+        // Método para excluir Ingresso
+        [HttpDelete("ExcluirIngresso/{idIngresso}")]
+        public async Task<IActionResult> ExcluirIngresso(int idIngresso)
+        {
+            var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
+
+            if (ingresso == null)
+                return NotFound("Ingresso não encontrado.");
+
+            _dbPassaIngressos.Ingressos.Remove(ingresso);
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Ingresso excluído com sucesso.");
+        }
+
+        // Método para comprar Ingresso
+        [HttpPost("ComprarIngresso/{idIngresso}")]
+        public async Task<IActionResult> ComprarIngresso(int idIngresso, [FromBody] ComprarIngressoDto ingressoComprado)
+        {
+            var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
+
+            if (ingresso == null)
+                return NotFound("Ingresso não encontrado.");
+
+            if (ingresso.IdPessoaAnunciante == ingressoComprado.IdPessoaComprador)
+                return BadRequest("O comprador não pode ser o mesmo que o anunciante.");
+
+            ingresso.IdPessoaComprador = ingressoComprado.IdPessoaComprador;
+            ingresso.Vendido = true;
+
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Ingresso comprado com sucesso.");
+        }
+
+        // Método para buscar ingressos por evento
+        [HttpGet("BuscarIngressosPorEvento/{idEvento}")]
+        public async Task<IActionResult> BuscarIngressosPorEvento(int idEvento)
+        {
+            var ingressos = await _dbPassaIngressos.Ingressos
+                                  .Include(u => u.Evento)
+                                  .Where(i => i.IdEvento == idEvento)
+                                  .Select(xs => new IngressoEventoDto
+                                  {
+                                      IdIngresso = xs.IdIngresso,
+                                      NomeEvento = xs.Evento.NomeEvento,
+                                      LocalEvento = xs.Evento.LocalEvento,
+                                      DataHoraEvento = xs.Evento.DataHoraEvento.Value.ToString("dd/MM/yyyy - HH'h'"),
+                                      Valor = xs.Valor,
+                                      
+                                      IdPessoaAnunciante = xs.IdPessoaAnunciante,
+                                      IdTipoIngresso = xs.IdTgTipoIngresso,
+                                      IdArquivoEvento = xs.Evento.IdArquivoEvento
+                                  })
+                                  .ToListAsync();
+
+            if (ingressos == null || !ingressos.Any())
+                return NotFound("Nenhum ingresso encontrado para o evento.");
+
+            return Ok(ingressos);
+        }
+
+        #endregion
+
         #region Evento
 
         // Método para criar Evento
@@ -31,7 +154,8 @@ namespace PassaIngressos_WebAPI.Controllers
             {
                 NomeEvento = eventoDto.NomeEvento,
                 LocalEvento = eventoDto.LocalEvento,
-                DataHoraEvento = eventoDto.DataHoraEvento
+                DataHoraEvento = eventoDto.DataHoraEvento,
+                IdArquivoEvento = eventoDto.IdArquivoEvento
             };
 
             _dbPassaIngressos.Eventos.Add(evento);
@@ -52,6 +176,7 @@ namespace PassaIngressos_WebAPI.Controllers
             evento.NomeEvento = eventoAtualizado.NomeEvento;
             evento.LocalEvento = eventoAtualizado.LocalEvento;
             evento.DataHoraEvento = eventoAtualizado.DataHoraEvento;
+            evento.IdArquivoEvento = eventoAtualizado.IdArquivoEvento;
 
             await _dbPassaIngressos.SaveChangesAsync();
 
@@ -163,93 +288,6 @@ namespace PassaIngressos_WebAPI.Controllers
                 evento.QuantidadeIngressosDisponiveis = ingressos.Count(xs => xs.IdEvento == evento.IdEvento);
 
             return Ok(eventos);
-        }
-
-        #endregion
-
-        #region Ingresso
-
-        // Método para vender/anunciar o Ingresso
-        [HttpPost("VenderIngresso")]
-        public async Task<IActionResult> VenderIngresso([FromBody] IngressoDto ingressoDto)
-        {
-            var ingresso = new Ingresso
-            {
-                IdTgTipoIngresso = ingressoDto.IdTipoIngresso,
-                Valor = ingressoDto.Valor,
-                IdPessoaAnunciante = ingressoDto.IdPessoaAnunciante,
-                IdEvento = ingressoDto.IdEvento,
-            };
-
-            _dbPassaIngressos.Ingressos.Add(ingresso);
-            await _dbPassaIngressos.SaveChangesAsync();
-
-            return Ok("Ingresso colocado à venda com sucesso.");
-        }
-
-        // Método para alterar Ingresso
-        [HttpPut("AlterarIngresso/{idIngresso}")]
-        public async Task<IActionResult> AlterarIngresso(int idIngresso, [FromBody] AlterarIngressoDto ingressoAtualizado)
-        {
-            var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
-
-            if (ingresso == null)
-                return NotFound("Ingresso não encontrado.");
-
-            ingresso.IdTgTipoIngresso = ingressoAtualizado.IdTipoIngresso;
-            ingresso.Valor = ingressoAtualizado.Valor;
-
-            await _dbPassaIngressos.SaveChangesAsync();
-
-            return Ok(ingresso);
-        }
-
-        // Método para excluir Ingresso
-        [HttpDelete("ExcluirIngresso/{idIngresso}")]
-        public async Task<IActionResult> ExcluirIngresso(int idIngresso)
-        {
-            var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
-
-            if (ingresso == null)
-                return NotFound("Ingresso não encontrado.");
-
-            _dbPassaIngressos.Ingressos.Remove(ingresso);
-            await _dbPassaIngressos.SaveChangesAsync();
-
-            return Ok("Ingresso excluído com sucesso.");
-        }
-
-        // Método para comprar Ingresso
-        [HttpPost("ComprarIngresso/{idIngresso}")]
-        public async Task<IActionResult> ComprarIngresso(int idIngresso, [FromBody] ComprarIngressoDto ingressoComprado)
-        {
-            var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
-
-            if (ingresso == null)
-                return NotFound("Ingresso não encontrado.");
-
-            // TODO Implementar lógica para comprar e associar ingresso ao IdPessoa logado
-
-            await _dbPassaIngressos.SaveChangesAsync();
-
-            return Ok("Ingresso comprado com sucesso.");
-        }
-
-        // Método para buscar ingressos por evento
-        [HttpGet("BuscarIngressosPorEvento/{idEvento}")]
-        public async Task<IActionResult> BuscarIngressosPorEvento(int idEvento)
-        {
-            var ingressos = await _dbPassaIngressos.Ingressos
-                                  .Include(u => u.TipoIngresso)
-                                  .Include(u => u.PessoaAnunciante)
-                                  .Include(u => u.Evento)
-                                  .Where(i => i.IdEvento == idEvento)
-                                  .ToListAsync();
-
-            if (ingressos == null || !ingressos.Any())
-                return NotFound("Nenhum ingresso encontrado para o evento.");
-
-            return Ok(ingressos);
         }
 
         #endregion

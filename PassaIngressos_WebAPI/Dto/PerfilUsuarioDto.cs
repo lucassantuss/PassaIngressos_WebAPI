@@ -1,6 +1,6 @@
 ﻿namespace PassaIngressos_WebAPI.Dto
 {
-    public class UsuarioAdicionaPerfilDto
+    public class PerfilUsuarioDto
     {
         public int IdPerfil { get; set; }
     }
