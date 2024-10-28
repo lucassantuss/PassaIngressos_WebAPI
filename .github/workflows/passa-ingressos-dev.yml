@@ -30,13 +30,13 @@ jobs:
         run: dotnet test PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj --configuration Release --no-restore --verbosity normal
         
       - name: dotnet publish
-        run: dotnet publish PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj -c Release -o passa-ingressos-dev
+        run: dotnet publish PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj -c Release -o webapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: passa-ingressos-dev
+          path: webapp
 
   deploy:
     runs-on: ubuntu-latest
@@ -57,7 +57,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'passa-ingressos-dev'
+          app-name: passa-ingressos
           slot-name: 'Production'
-          package: .
+          package: ./publish
           publish-profile: ${{ secrets.passa_ingressos_9D62 }}
