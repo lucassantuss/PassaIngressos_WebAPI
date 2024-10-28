@@ -1,4 +1,4 @@
-name: Passa Ingressos - Build and deploy ASP.Net Core app to Azure Web App
+name: Passa Ingressos DEV - Build and deploy ASP.Net Core app to Azure Web App
 
 on:
   push:
@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'Development'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write
@@ -58,6 +58,6 @@ jobs:
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'passa-ingressos-dev'
-          slot-name: 'Production'
+          slot-name: 'Development'
           package: .
           publish-profile: ${{ secrets.passa_ingressos_dev_53E5 }}
