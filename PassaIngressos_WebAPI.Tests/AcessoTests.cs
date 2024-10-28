@@ -16,17 +16,17 @@ namespace PassaIngressos_WebAPI.Tests
 
         public AcessoTests()
         {
-            var configurationBuilder = new ConfigurationBuilder();
+            var configurationBuilder = new ConfigurationBuilder()
+                 .AddEnvironmentVariables();
+
             _configuration = configurationBuilder.Build();
 
-            var keyJWT = Environment.GetEnvironmentVariable("Jwt_ChaveSecreta_PassaIngressos");
+            var keyJWT = _configuration["Jwt_ChaveSecreta_PassaIngressos"];
 
             if (string.IsNullOrEmpty(keyJWT))
             {
                 throw new InvalidOperationException("A chave JWT não foi encontrada.");
             }
-
-            _configuration["Jwt:ChaveSecreta_PassaIngressos"] = keyJWT;
 
             var options = new DbContextOptionsBuilder<DbPassaIngressos>()
                 .UseInMemoryDatabase(databaseName: "DbTest")
