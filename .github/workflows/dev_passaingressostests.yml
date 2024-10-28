@@ -1,0 +1,67 @@
+name: Build and deploy ASP.Net Core app to Azure Web App - PassaIngressosTESTS
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+          
+      - name: Restore NuGet packages
+        run: dotnet restore PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj
+
+      - name: Build with dotnet
+        run: dotnet build PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj --configuration Release
+
+      - name: Run tests
+        run: dotnet test PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj --configuration Release --no-restore --verbosity normal
+        
+      - name: dotnet publish
+        run: dotnet publish PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj -c Release -o myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: myapp
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+      
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6D6CE3DDFB5041A4B73E244331FE6BBD }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_449261CB3F8F4D428CFA42CFBA0C649F }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3F3441E4D06A445D91D31FF99D8639AD }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'PassaIngressosTESTS'
+          slot-name: 'Production'
+          package: .
