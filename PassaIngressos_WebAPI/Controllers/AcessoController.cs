@@ -3,6 +3,12 @@ using Microsoft.EntityFrameworkCore;
 using PassaIngressos_WebAPI.Database;
 using PassaIngressos_WebAPI.Entity;
 using PassaIngressos_WebAPI.Dto;
+using PassaIngressos_WebAPI.Util;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassaIngressos_WebAPI.Controllers
 {
@@ -11,10 +17,13 @@ namespace PassaIngressos_WebAPI.Controllers
     public class AcessoController : ControllerBase
     {
         #region Contexto e Variáveis
-        private readonly DbPassaIngressos _dbPassaIngressos;
 
-        public AcessoController(DbPassaIngressos _context)
+        private readonly DbPassaIngressos _dbPassaIngressos;
+        private readonly IConfiguration _configuration;
+
+        public AcessoController(IConfiguration configuration, DbPassaIngressos _context)
         {
+            _configuration = configuration;
             _dbPassaIngressos = _context;
         }
 
@@ -23,21 +32,26 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Perfil
 
         // Método para listar todos os Perfis
+        [Authorize]
         [HttpGet("ListarPerfis")]
         public async Task<IActionResult> ListarPerfis()
         {
             var listaPerfis = await _dbPassaIngressos.Perfis.ToListAsync();
 
-            if (listaPerfis == null)
+            if (listaPerfis == null || !listaPerfis.Any())
                 return NotFound("Não foi encontrado nenhum perfil.");
 
             return Ok(listaPerfis);
         }
 
         // Método para criar Perfil
+        [Authorize]
         [HttpPost("CriarPerfil")]
         public async Task<IActionResult> CriarPerfil([FromBody] PerfilDto perfilDto)
         {
+            if (perfilDto == null || string.IsNullOrWhiteSpace(perfilDto.NomePerfil))
+                return BadRequest("Nome do perfil é obrigatório.");
+
             var perfil = new Perfil
             {
                 NomePerfil = perfilDto.NomePerfil,
@@ -51,9 +65,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para alterar Perfil
+        [Authorize]
         [HttpPut("AlterarPerfil/{idPerfil}")]
         public async Task<IActionResult> AlterarPerfil(int idPerfil, [FromBody] PerfilDto perfilAtualizado)
         {
+            if (perfilAtualizado == null || string.IsNullOrWhiteSpace(perfilAtualizado.NomePerfil))
+                return BadRequest("Nome do perfil é obrigatório.");
+
             var perfil = await _dbPassaIngressos.Perfis.FindAsync(idPerfil);
 
             if (perfil == null)
@@ -68,6 +86,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para remover Perfil
+        [Authorize]
         [HttpDelete("RemoverPerfil/{idPerfil}")]
         public async Task<IActionResult> RemoverPerfil(int idPerfil)
         {
@@ -83,6 +102,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para pesquisar todos os usuários do Perfil
+        [Authorize]
         [HttpGet("UsuariosDoPerfil/{idPerfil}")]
         public async Task<IActionResult> UsuariosDoPerfil(int idPerfil)
         {
@@ -98,7 +118,6 @@ namespace PassaIngressos_WebAPI.Controllers
                                  .Where(xs => listaIdsUsuarios.Contains(xs.IdUsuario))
                                  .ToListAsync();
 
-            // Mapear para o DTO
             var usuarioDtos = usuarios.Select(u => new UsuariosPerfilDto
             {
                 IdUsuario = u.IdUsuario,
@@ -116,6 +135,18 @@ namespace PassaIngressos_WebAPI.Controllers
         [HttpPost("CriarUsuario")]
         public async Task<IActionResult> CriarUsuario([FromBody] UsuarioDto usuarioDto)
         {
+            if (usuarioDto == null || string.IsNullOrWhiteSpace(usuarioDto.Login) ||
+                string.IsNullOrWhiteSpace(usuarioDto.Senha) || 
+                string.IsNullOrWhiteSpace(usuarioDto.NomePessoa))
+            {
+                return BadRequest("Dados do usuário são obrigatórios.");
+            }
+
+            ValidacaoHelper ValidacaoHelper = new ValidacaoHelper();
+
+            if (!ValidacaoHelper.IsValidCPF(usuarioDto.CPF))
+                return BadRequest("CPF inválido.");
+
             // Cria Pessoa que será associada ao Usuário
             var pessoa = new Pessoa()
             {
@@ -158,6 +189,9 @@ namespace PassaIngressos_WebAPI.Controllers
         [HttpPut("RedefinirSenha/{idUsuario}")]
         public async Task<IActionResult> RedefinirSenha(int idUsuario, [FromBody] RedefineSenhaDto redefineSenhaDto)
         {
+            if (redefineSenhaDto == null || string.IsNullOrWhiteSpace(redefineSenhaDto.Senha))
+                return BadRequest("Senha é obrigatória.");
+
             var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
 
             if (usuario == null)
@@ -173,7 +207,9 @@ namespace PassaIngressos_WebAPI.Controllers
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            // TODO Verificar com a senha criptografada...
+            if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) || string.IsNullOrWhiteSpace(loginDto.Senha))
+                return BadRequest("Login e senha são obrigatórios.");
+
             var usuario = await _dbPassaIngressos.Usuarios
                                 .SingleOrDefaultAsync(u => u.Login == loginDto.Login &&
                                                            u.Senha == loginDto.Senha);
@@ -181,13 +217,36 @@ namespace PassaIngressos_WebAPI.Controllers
             if (usuario == null)
                 return Unauthorized("Login ou senha inválidos.");
 
-            return Ok("Login realizado com sucesso.");
+            // Gerando o Token JWT
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var jwtSecretKey = _configuration["Jwt_ChaveSecreta_PassaIngressos"];
+            var key = Encoding.ASCII.GetBytes(jwtSecretKey);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new Claim[]
+                {
+                    new Claim(ClaimTypes.NameIdentifier, usuario.IdUsuario.ToString()),
+                    new Claim(ClaimTypes.Name, usuario.Login.ToString()),
+                }),
+                Expires = DateTime.UtcNow.AddHours(3),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+            };
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            var tokenJWT = tokenHandler.WriteToken(token);
+
+            return Ok(new { Token = tokenJWT });
         }
 
         // Método para pesquisar usuário por login
+        [Authorize]
         [HttpGet("PesquisarUsuarioPorLogin/{login}")]
         public async Task<IActionResult> PesquisarUsuarioPorLogin(string login)
         {
+            if (string.IsNullOrWhiteSpace(login))
+                return BadRequest("Login é obrigatório.");
+
             var usuario = await _dbPassaIngressos.Usuarios
                                 .Include(u => u.Pessoa)
                                 .SingleOrDefaultAsync(u => u.Login == login);
@@ -199,6 +258,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para excluir conta
+        [Authorize]
         [HttpDelete("ExcluirConta/{idUsuario}")]
         public async Task<IActionResult> ExcluirConta(int idUsuario)
         {
@@ -230,6 +290,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para pesquisar Perfis associados ao IdUsuario
+        [Authorize]
         [HttpGet("PerfisDoUsuario/{idUsuario}")]
         public async Task<IActionResult> PerfisDoUsuario(int idUsuario)
         {
@@ -249,9 +310,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para adicionar Perfil ao IdUsuario
+        [Authorize]
         [HttpPost("AdicionarPerfilAoUsuario/{idUsuario}")]
         public async Task<IActionResult> AdicionarPerfilAoUsuario(int idUsuario, [FromBody] PerfilUsuarioDto adicionaPerfilDto)
         {
+            if (adicionaPerfilDto == null)
+                return BadRequest("Dados do perfil são obrigatórios.");
+
             var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
             var perfil = await _dbPassaIngressos.Perfis.FindAsync(adicionaPerfilDto.IdPerfil);
 
@@ -281,9 +346,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para remover Perfil do IdUsuario
+        [Authorize]
         [HttpDelete("RemoverPerfilDoUsuario/{idUsuario}")]
         public async Task<IActionResult> RemoverPerfilDoUsuario(int idUsuario, [FromBody] PerfilUsuarioDto removePerfilDto)
         {
+            if (removePerfilDto == null)
+                return BadRequest("Dados do perfil são obrigatórios.");
+
             var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
             var perfil = await _dbPassaIngressos.Perfis.FindAsync(removePerfilDto.IdPerfil);
 

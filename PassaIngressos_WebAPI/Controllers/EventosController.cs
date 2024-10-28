@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using PassaIngressos_WebAPI.Database;
 using PassaIngressos_WebAPI.Entity;
 using PassaIngressos_WebAPI.Dto;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PassaIngressos_WebAPI.Controllers
 {
@@ -24,9 +25,22 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Ingresso
 
         // Método para vender/anunciar o Ingresso
+        [Authorize]
         [HttpPost("AnunciarIngresso")]
         public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
         {
+            if (novoIngressoDto == null)
+                return BadRequest("Dados do ingresso são obrigatórios.");
+
+            if (string.IsNullOrWhiteSpace(novoIngressoDto.NomeEvento))
+                return BadRequest("Nome do evento é obrigatório.");
+
+            if (novoIngressoDto.DataHoraEvento == default)
+                return BadRequest("Data e hora do evento são obrigatórias.");
+
+            if (novoIngressoDto.Valor <= 0)
+                return BadRequest("O valor do ingresso deve ser maior que 0.");
+
             var novoEvento = new Evento
             {
                 NomeEvento = novoIngressoDto.NomeEvento,
@@ -53,22 +67,24 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para alterar Ingresso
+        [Authorize]
         [HttpPut("AlterarIngresso/{idIngresso}")]
         public async Task<IActionResult> AlterarIngresso(int idIngresso, [FromBody] AlterarIngressoDto ingressoAtualizado)
         {
+            if (ingressoAtualizado == null)
+                return BadRequest("Dados do ingresso são obrigatórios.");
+
             var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
 
             if (ingresso == null)
                 return NotFound("Ingresso não encontrado.");
 
-            // Verifica se o TipoIngresso existe
             var tipoIngressoExistente = await _dbPassaIngressos.ItensTabelaGeral
                                               .AnyAsync(i => i.IdItemTabelaGeral == ingressoAtualizado.IdTipoIngresso);
 
             if (!tipoIngressoExistente)
                 return BadRequest("Tipo de ingresso não encontrado.");
 
-            // Valida se o valor do ingresso é maior que 0
             if (ingressoAtualizado.Valor <= 0)
                 return BadRequest("O valor do ingresso deve ser maior que 0.");
 
@@ -81,9 +97,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para excluir Ingresso
+        [Authorize]
         [HttpDelete("ExcluirIngresso/{idIngresso}")]
         public async Task<IActionResult> ExcluirIngresso(int idIngresso)
         {
+            if (idIngresso <= 0)
+                return BadRequest("ID do ingresso inválido.");
+
             var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
 
             if (ingresso == null)
@@ -96,9 +116,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para comprar Ingresso
+        [Authorize]
         [HttpPost("ComprarIngresso/{idIngresso}")]
         public async Task<IActionResult> ComprarIngresso(int idIngresso, [FromBody] ComprarIngressoDto ingressoComprado)
         {
+            if (ingressoComprado == null)
+                return BadRequest("Dados do ingresso são obrigatórios.");
+
             var ingresso = await _dbPassaIngressos.Ingressos.FindAsync(idIngresso);
 
             if (ingresso == null)
@@ -116,9 +140,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para buscar ingressos por evento
+        [Authorize]
         [HttpGet("BuscarIngressosPorEvento/{idEvento}")]
         public async Task<IActionResult> BuscarIngressosPorEvento(int idEvento)
         {
+            if (idEvento <= 0)
+                return BadRequest("ID do evento inválido.");
+
             var ingressos = await _dbPassaIngressos.Ingressos
                                   .Include(u => u.Evento)
                                   .Where(i => i.IdEvento == idEvento)
@@ -147,9 +175,19 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Evento
 
         // Método para criar Evento
+        [Authorize]
         [HttpPost("CriarEvento")]
         public async Task<IActionResult> CriarEvento([FromBody] EventoDto eventoDto)
         {
+            if (eventoDto == null)
+                return BadRequest("Dados do evento são obrigatórios.");
+
+            if (string.IsNullOrWhiteSpace(eventoDto.NomeEvento))
+                return BadRequest("Nome do evento é obrigatório.");
+
+            if (eventoDto.DataHoraEvento == default)
+                return BadRequest("Data e hora do evento são obrigatórias.");
+
             var evento = new Evento
             {
                 NomeEvento = eventoDto.NomeEvento,
@@ -165,9 +203,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para editar Evento
+        [Authorize]
         [HttpPut("EditarEvento/{idEvento}")]
         public async Task<IActionResult> EditarEvento(int idEvento, [FromBody] EventoDto eventoAtualizado)
         {
+            if (eventoAtualizado == null)
+                return BadRequest("Dados do evento são obrigatórios.");
+
             var evento = await _dbPassaIngressos.Eventos.FindAsync(idEvento);
 
             if (evento == null)
@@ -184,9 +226,13 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para excluir Evento
+        [Authorize]
         [HttpDelete("ExcluirEvento/{idEvento}")]
         public async Task<IActionResult> ExcluirEvento(int idEvento)
         {
+            if (idEvento <= 0)
+                return BadRequest("ID do evento inválido.");
+
             var evento = await _dbPassaIngressos.Eventos.FindAsync(idEvento);
 
             if (evento == null)
@@ -253,6 +299,9 @@ namespace PassaIngressos_WebAPI.Controllers
         [HttpGet("PesquisarEvento/{idEvento}")]
         public async Task<IActionResult> PesquisarEvento(int idEvento)
         {
+            if (idEvento <= 0)
+                return BadRequest("ID do evento inválido.");
+
             var evento = await _dbPassaIngressos.Eventos
                                .Include(u => u.ArquivoEvento)
                                .Where(xs => xs.IdEvento == idEvento)
@@ -268,6 +317,9 @@ namespace PassaIngressos_WebAPI.Controllers
         [HttpGet("PesquisarEventosPorNome/{nomeEvento}")]
         public async Task<IActionResult> PesquisarEventosPorNome(string nomeEvento)
         {
+            if (string.IsNullOrWhiteSpace(nomeEvento))
+                return BadRequest("Nome do evento é obrigatório.");
+
             var eventos = await _dbPassaIngressos.Eventos
                                .Where(xs => xs.NomeEvento.Contains(nomeEvento))
                                .Select(xs => new EventoRelacionadoDto
@@ -278,9 +330,9 @@ namespace PassaIngressos_WebAPI.Controllers
                                    IdArquivoEvento = xs.IdArquivoEvento
                                })
                                .ToListAsync();
-            
-            if (eventos == null)
-                return NotFound("Evento não encontrado.");
+
+            if (eventos == null || !eventos.Any())
+                return NotFound("Nenhum evento encontrado.");
 
             var ingressos = await _dbPassaIngressos.Ingressos.ToListAsync();
 
