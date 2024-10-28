@@ -40,7 +40,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Passa Ingressos", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Passa Ingressos DEV", Version = "v1" });
 });
 
 // Database configuration
