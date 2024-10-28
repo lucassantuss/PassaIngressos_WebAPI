@@ -34,7 +34,7 @@ namespace PassaIngressos_WebAPI.Controllers
             if (arquivo == null)
                 return NotFound("Arquivo não encontrado.");
 
-            return File(arquivo.ConteudoArquivo, arquivo.ContentType, arquivo.Nome);
+            return File(arquivo.ConteudoArquivo, arquivo.ContentType);
         }
 
         [HttpPost("SalvarArquivo")]
