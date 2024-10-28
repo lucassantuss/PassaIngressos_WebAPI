@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using PassaIngressos_WebAPI.Controllers;
 using PassaIngressos_WebAPI.Database;
 using PassaIngressos_WebAPI.Dto;
@@ -11,16 +12,28 @@ namespace PassaIngressos_WebAPI.Tests
     {
         private readonly DbPassaIngressos _context;
         private readonly AcessoController _controller;
+        private readonly IConfiguration _configuration;
 
         public AcessoTests()
         {
-            // Configura o DbContext para usar o banco de dados em memória
+            var configurationBuilder = new ConfigurationBuilder()
+                 .AddEnvironmentVariables();
+
+            _configuration = configurationBuilder.Build();
+
+            var keyJWT = _configuration["Jwt_ChaveSecreta_PassaIngressos"];
+
+            if (string.IsNullOrEmpty(keyJWT))
+            {
+                throw new InvalidOperationException("A chave JWT não foi encontrada.");
+            }
+
             var options = new DbContextOptionsBuilder<DbPassaIngressos>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .UseInMemoryDatabase(databaseName: "DbTest")
                 .Options;
 
             _context = new DbPassaIngressos(options);
-            _controller = new AcessoController(_context);
+            _controller = new AcessoController(_configuration, _context);
         }
 
         [Fact]
@@ -33,10 +46,11 @@ namespace PassaIngressos_WebAPI.Tests
                 Senha = "password", 
 
                 NomePessoa = "New User",
-                CPF = "123.456.789-10",
+                CPF = "132.730.760-03",
                 RG = "12.345.678-9",
-                IdArquivoFoto = 0,
-                IdTgSexo = 0,
+                DataNascimento = DateTime.Now.AddYears(-20),
+                IdArquivoFoto = 1,
+                IdTgSexo = 1,
             };
 
             // Act
@@ -44,25 +58,28 @@ namespace PassaIngressos_WebAPI.Tests
 
             // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
-            var createdUsuario = Assert.IsAssignableFrom<Usuario>(okResult.Value);
-            Assert.Equal("newuser", createdUsuario.Login);
+            Assert.Equal("Usuário criado com sucesso!", okResult.Value);
         }
 
         [Fact]
         public async Task RemoverUsuario_RetornaOk_QuandoUsuarioForRemovido()
         {
             // Arrange
-            var usuario = new Usuario 
-            { 
-                IdUsuario = 1, 
-                Login = "UsuarioParaRemover", 
-                Senha = "SenhaDoUsuarioRemovido" 
+            var usuarioDto = new UsuarioDto
+            {
+                Login = "newuser",
+                Senha = "password",
+
+                NomePessoa = "New User",
+                CPF = "132.730.760-03",
+                RG = "12.345.678-9",
+                DataNascimento = DateTime.Now.AddYears(-20),
+                IdArquivoFoto = 1,
+                IdTgSexo = 1,
             };
-                        
-            await _context.Usuarios.AddAsync(usuario);
-            await _context.SaveChangesAsync();
 
             // Act
+            await _controller.CriarUsuario(usuarioDto);
             var result = await _controller.ExcluirConta(1);
 
             // Assert

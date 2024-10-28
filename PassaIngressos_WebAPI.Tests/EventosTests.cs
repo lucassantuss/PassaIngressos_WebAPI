@@ -14,9 +14,8 @@ namespace PassaIngressos_WebAPI.Tests
 
         public EventosTests()
         {
-            // Configura o DbContext para usar o banco de dados em memória
             var options = new DbContextOptionsBuilder<DbPassaIngressos>()
-                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .UseInMemoryDatabase(databaseName: "DbTest")
                 .Options;
 
             _context = new DbPassaIngressos(options);
@@ -98,7 +97,7 @@ namespace PassaIngressos_WebAPI.Tests
         public async Task ListarEventos_RetornaOk_QuandoExistemEventos()
         {
             // Arrange
-            await _controller.ExcluirEvento(1); // Excluir evento de outros testes anteriores
+            await _controller.ExcluirEvento(1);
 
             var eventos = new List<Evento>
             {
