@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - PassaIngressosTESTS
+name: Build and deploy ASP.Net Core app to Azure Web App - Passa Ingressos
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
@@ -25,21 +25,19 @@ jobs:
         run: dotnet build PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj --configuration Release
 
       - name: Run tests
-        env:
-          Jwt_ChaveSecreta_PassaIngressos: ${{ secrets.JWT_CHAVESECRETA_PASSAINGRESSOS }}
         run: dotnet test PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj --configuration Release --no-restore --verbosity normal
         
       - name: dotnet publish
-        run: dotnet publish PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj -c Release -o myapp
+        run: dotnet publish PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj -c Release -o passa-ingressos-dev
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: myapp
+          path: passa-ingressos-dev
 
   deploy:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: build
     environment:
       name: 'Production'
@@ -53,17 +51,11 @@ jobs:
         with:
           name: .net-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_6D6CE3DDFB5041A4B73E244331FE6BBD }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_449261CB3F8F4D428CFA42CFBA0C649F }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_3F3441E4D06A445D91D31FF99D8639AD }}
-
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
-          app-name: 'PassaIngressosTESTS'
+          app-name: 'passa-ingressos-dev'
           slot-name: 'Production'
           package: .
+          publish-profile: ${{ secrets.passa_ingressos_9D62 }}
