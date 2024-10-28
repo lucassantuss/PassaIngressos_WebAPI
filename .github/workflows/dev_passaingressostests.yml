@@ -25,6 +25,8 @@ jobs:
         run: dotnet build PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj --configuration Release
 
       - name: Run tests
+        env:
+          Jwt_ChaveSecreta_PassaIngressos: ${{ secrets.JWT_CHAVESECRETA_PASSAINGRESSOS }}
         run: dotnet test PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj --configuration Release --no-restore --verbosity normal
         
       - name: dotnet publish
