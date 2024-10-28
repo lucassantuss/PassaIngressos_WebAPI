@@ -1,4 +1,4 @@
-name: Build and deploy ASP.Net Core app to Azure Web App - Passa Ingressos
+name: Passa Ingressos PRD - Build and deploy ASP.Net Core app to Azure Web App
 
 on:
   push:
