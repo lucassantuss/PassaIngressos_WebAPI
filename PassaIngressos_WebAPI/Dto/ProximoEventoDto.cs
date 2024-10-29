@@ -2,6 +2,8 @@
 {
     public class ProximoEventoDto
     {
+        public int IdEvento { get; set; }
+
         public string NomeEvento { get; set; }
 
         public int Ano { get; set; }

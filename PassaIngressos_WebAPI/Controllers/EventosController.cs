@@ -263,6 +263,7 @@ namespace PassaIngressos_WebAPI.Controllers
                                                  .Take(3)
                                                  .Select(xs => new ProximoEventoDto
                                                  {
+                                                     IdEvento = xs.IdEvento,
                                                      NomeEvento = xs.NomeEvento,
                                                      Ano = xs.DataHoraEvento.Value.Year,
                                                      IdArquivoEvento = xs.IdArquivoEvento,
