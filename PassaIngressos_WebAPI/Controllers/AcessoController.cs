@@ -32,7 +32,6 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Perfil
 
         // Método para listar todos os Perfis
-        [Authorize]
         [HttpGet("ListarPerfis")]
         public async Task<IActionResult> ListarPerfis()
         {
