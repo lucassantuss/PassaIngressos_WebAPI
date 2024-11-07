@@ -1,0 +1,63 @@
+name: Passa Ingressos DEV - Build and deploy ASP.Net Core app to Azure Web App
+
+on:
+  push:
+    branches:
+      - dev
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+          
+      - name: Restore NuGet packages
+        run: dotnet restore PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj
+
+      - name: Build with dotnet
+        run: dotnet build PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj --configuration Release
+
+      - name: Run tests
+        env:
+          Jwt_ChaveSecreta_PassaIngressos: ${{ secrets.JWT_CHAVESECRETA_PASSAINGRESSOS }}
+        run: dotnet test PassaIngressos_WebAPI.Tests/PassaIngressos_WebAPI.Tests.csproj --configuration Release --no-restore --verbosity normal
+        
+      - name: dotnet publish
+        run: dotnet publish PassaIngressos_WebAPI/PassaIngressos_WebAPI.csproj -c Release -o passa-ingressos-dev
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: passa-ingressos-dev
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+      
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'passa-ingressos-dev'
+          slot-name: 'Production'
+          package: .
+          publish-profile: ${{ secrets.passa_ingressos_dev_53E5 }}
