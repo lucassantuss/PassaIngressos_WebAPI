@@ -135,7 +135,7 @@ namespace PassaIngressos_WebAPI.Controllers
         public async Task<IActionResult> CriarUsuario([FromBody] UsuarioDto usuarioDto)
         {
             if (usuarioDto == null || string.IsNullOrWhiteSpace(usuarioDto.Login) ||
-                string.IsNullOrWhiteSpace(usuarioDto.Senha) || 
+                string.IsNullOrWhiteSpace(usuarioDto.Senha) ||
                 string.IsNullOrWhiteSpace(usuarioDto.NomePessoa))
             {
                 return BadRequest("Dados do usuário são obrigatórios.");
@@ -145,6 +145,25 @@ namespace PassaIngressos_WebAPI.Controllers
 
             if (!ValidacaoHelper.IsValidCPF(usuarioDto.CPF))
                 return BadRequest("CPF inválido.");
+
+            if (!ValidacaoHelper.IsValidRG(usuarioDto.RG))
+                return BadRequest("RG inválido.");
+
+            if (usuarioDto.IdArquivoFoto > 0)
+                return BadRequest("A imagem enviada é inválida.");
+
+            if (usuarioDto.IdTgSexo > 0)
+                return BadRequest("Selecione um sexo válido.");
+
+            if (usuarioDto.DataNascimento >= DateTime.UtcNow)
+                return BadRequest("A data de nascimento não pode ser no futuro.");
+
+            // Verifica se o login já existe
+            bool loginExistente = await _dbPassaIngressos.Usuarios
+                .AnyAsync(u => u.Login == usuarioDto.Login);
+
+            if (loginExistente)
+                return BadRequest("O login informado já está em uso. Por favor, escolha outro.");
 
             // Cria Pessoa que será associada ao Usuário
             var pessoa = new Pessoa()
@@ -185,18 +204,22 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para redefinir senha
-        [HttpPut("RedefinirSenha/{idUsuario}")]
-        public async Task<IActionResult> RedefinirSenha(int idUsuario, [FromBody] RedefineSenhaDto redefineSenhaDto)
+        [HttpPut("RedefinirSenha")]
+        public async Task<IActionResult> RedefinirSenha([FromBody] RedefineSenhaDto redefineSenhaDto)
         {
-            if (redefineSenhaDto == null || string.IsNullOrWhiteSpace(redefineSenhaDto.Senha))
-                return BadRequest("Senha é obrigatória.");
+            if (redefineSenhaDto == null || 
+                string.IsNullOrWhiteSpace(redefineSenhaDto.Login) ||
+                string.IsNullOrWhiteSpace(redefineSenhaDto.Senha))
+                return BadRequest("Login e senha são obrigatórios.");
 
-            var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
+            // Busca o usuário pelo login
+            var usuario = await _dbPassaIngressos.Usuarios
+                                    .SingleOrDefaultAsync(u => u.Login == redefineSenhaDto.Login);
 
             if (usuario == null)
                 return NotFound("Usuário não encontrado.");
 
-            usuario.Senha = BCrypt.Net.BCrypt.HashPassword(redefineSenhaDto.Senha);
+            usuario.Senha = BCrypt.Net.BCrypt.HashPassword(redefineSenhaDto.Senha); // Criptografa a nova senha
             await _dbPassaIngressos.SaveChangesAsync();
 
             return Ok("Senha redefinida com sucesso.");
@@ -209,12 +232,18 @@ namespace PassaIngressos_WebAPI.Controllers
             if (loginDto == null || string.IsNullOrWhiteSpace(loginDto.Login) || string.IsNullOrWhiteSpace(loginDto.Senha))
                 return BadRequest("Login e senha são obrigatórios.");
 
+            // Busca o usuário pelo login
             var usuario = await _dbPassaIngressos.Usuarios
-                                .SingleOrDefaultAsync(u => u.Login == loginDto.Login &&
-                                                           u.Senha == loginDto.Senha);
+                                    .SingleOrDefaultAsync(u => u.Login == loginDto.Login);
 
             if (usuario == null)
-                return Unauthorized("Login ou senha inválidos.");
+                return Unauthorized("Login e/ou senha inválidos.");
+
+            // Verifica se a senha fornecida corresponde à senha criptografada no banco
+            bool senhaCorreta = BCrypt.Net.BCrypt.Verify(loginDto.Senha, usuario.Senha);
+
+            if (!senhaCorreta)
+                return Unauthorized("Login e/ou senha inválidos.");
 
             // Gerando o Token JWT
             var tokenHandler = new JwtSecurityTokenHandler();

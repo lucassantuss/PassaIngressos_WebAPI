@@ -40,6 +40,21 @@
             return secondDigit == cpfArray[10];
         }
 
+        public bool IsValidRG(string rg)
+        {
+            if (string.IsNullOrWhiteSpace(rg))
+                return false;
+
+            // Remove qualquer caractere não numérico ou letras
+            rg = rg.Replace(".", "").Replace("-", "").Trim();
+
+            // Verifica se o RG contém apenas números e se tem um comprimento entre 5 e 12 dígitos
+            if (rg.Length < 5 || rg.Length > 12 || !rg.All(char.IsDigit))
+                return false;
+
+            return true;
+        }
+
         public int CalcularIdade(DateTime dataNascimento)
         {
             var hoje = DateTime.UtcNow;
