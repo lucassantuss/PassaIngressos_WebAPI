@@ -149,10 +149,10 @@ namespace PassaIngressos_WebAPI.Controllers
             if (!ValidacaoHelper.IsValidRG(usuarioDto.RG))
                 return BadRequest("RG inválido.");
 
-            if (usuarioDto.IdArquivoFoto > 0)
+            if (usuarioDto.IdArquivoFoto <= 0)
                 return BadRequest("A imagem enviada é inválida.");
 
-            if (usuarioDto.IdTgSexo > 0)
+            if (usuarioDto.IdTgSexo <= 0)
                 return BadRequest("Selecione um sexo válido.");
 
             if (usuarioDto.DataNascimento >= DateTime.UtcNow)
@@ -207,7 +207,7 @@ namespace PassaIngressos_WebAPI.Controllers
         [HttpPut("RedefinirSenha")]
         public async Task<IActionResult> RedefinirSenha([FromBody] RedefineSenhaDto redefineSenhaDto)
         {
-            if (redefineSenhaDto == null || 
+            if (redefineSenhaDto == null ||
                 string.IsNullOrWhiteSpace(redefineSenhaDto.Login) ||
                 string.IsNullOrWhiteSpace(redefineSenhaDto.Senha))
                 return BadRequest("Login e senha são obrigatórios.");
@@ -264,7 +264,89 @@ namespace PassaIngressos_WebAPI.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenJWT = tokenHandler.WriteToken(token);
 
-            return Ok(new { Token = tokenJWT });
+            return Ok(new { Token = tokenJWT, IdUsuarioLogado = usuario.IdUsuario });
+        }
+
+        // Método para pesquisar usuário por id
+        [Authorize]
+        [HttpGet("PesquisarUsuarioPorId/{idUsuario}")]
+        public async Task<IActionResult> PesquisarUsuarioPorId(int idUsuario)
+        {
+            if (idUsuario <= 0)
+                return BadRequest("O usuário é inválido!");
+
+            var usuario = await _dbPassaIngressos.Usuarios
+                                .Include(x => x.Pessoa)
+                                .SingleOrDefaultAsync(u => u.IdUsuario == idUsuario);
+
+            if (usuario == null)
+                return NotFound("Usuário não encontrado.");
+
+            var usuarioLogadoDto = new UsuarioLogadoDto
+            {
+                Login = usuario.Login,
+
+                NomePessoa = usuario.Pessoa.Nome,
+                DataNascimento = usuario.Pessoa.DataNascimento,
+                CPF = usuario.Pessoa.CPF,
+                RG = usuario.Pessoa.RG,
+
+                IdArquivoFoto = usuario.Pessoa.IdArquivoFoto,
+                IdTgSexo = usuario.Pessoa.IdTgSexo,
+            };
+
+            return Ok(usuarioLogadoDto);
+        }
+
+        // Método para alterar Perfil
+        [Authorize]
+        [HttpPut("AlterarUsuario/{idUsuario}")]
+        public async Task<IActionResult> AlterarUsuario(int idUsuario, [FromBody] UsuarioLogadoDto usuarioAtualizadoDto)
+        {
+            if (usuarioAtualizadoDto == null || 
+                string.IsNullOrWhiteSpace(usuarioAtualizadoDto.Login) ||
+                string.IsNullOrWhiteSpace(usuarioAtualizadoDto.NomePessoa))
+            {
+                return BadRequest("Dados do usuário são obrigatórios.");
+            }
+
+            ValidacaoHelper ValidacaoHelper = new ValidacaoHelper();
+
+            if (!ValidacaoHelper.IsValidCPF(usuarioAtualizadoDto.CPF))
+                return BadRequest("CPF inválido.");
+
+            if (!ValidacaoHelper.IsValidRG(usuarioAtualizadoDto.RG))
+                return BadRequest("RG inválido.");
+
+            if (usuarioAtualizadoDto.IdArquivoFoto <= 0)
+                return BadRequest("A imagem enviada é inválida.");
+
+            if (usuarioAtualizadoDto.IdTgSexo <= 0)
+                return BadRequest("Selecione um sexo válido.");
+
+            if (usuarioAtualizadoDto.DataNascimento >= DateTime.UtcNow)
+                return BadRequest("A data de nascimento não pode ser no futuro.");
+
+            var usuario = await _dbPassaIngressos.Usuarios.FindAsync(idUsuario);
+
+            if (usuario == null)
+                return NotFound("Usuário não encontrado.");
+
+            var pessoa = await _dbPassaIngressos.Pessoas.FindAsync(usuario.IdPessoa);
+
+            if (pessoa == null)
+                return NotFound("Pessoa associada ao usuário não encontrada.");
+
+            pessoa.Nome = usuarioAtualizadoDto.NomePessoa;
+            pessoa.DataNascimento = usuarioAtualizadoDto.DataNascimento;
+            pessoa.CPF = usuarioAtualizadoDto.CPF;
+            pessoa.RG = usuarioAtualizadoDto.RG;
+            pessoa.IdArquivoFoto = usuarioAtualizadoDto.IdArquivoFoto;
+            pessoa.IdTgSexo = usuarioAtualizadoDto.IdTgSexo;
+
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Dados da conta alterados com sucesso!");
         }
 
         // Método para pesquisar usuário por login
@@ -354,7 +436,8 @@ namespace PassaIngressos_WebAPI.Controllers
             if (perfil == null)
                 return NotFound("Perfil não encontrado.");
 
-            var usuarioPerfil = new UsuarioPerfil {
+            var usuarioPerfil = new UsuarioPerfil
+            {
                 IdUsuario = idUsuario,
                 IdPerfil = adicionaPerfilDto.IdPerfil
             };

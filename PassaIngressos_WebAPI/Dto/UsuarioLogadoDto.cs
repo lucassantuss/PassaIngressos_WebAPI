@@ -1,9 +1,8 @@
 ﻿namespace PassaIngressos_WebAPI.Dto
 {
-    public class UsuarioDto
+    public class UsuarioLogadoDto
     {
         public string Login { get; set; }
-        public string Senha { get; set; }
         public string NomePessoa { get; set; }
 
         public DateTime? DataNascimento { get; set; }
