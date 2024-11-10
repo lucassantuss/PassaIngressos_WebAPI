@@ -60,8 +60,7 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost:3000",
                                "https://passa-ingressos.vercel.app")
                   .AllowAnyMethod()
-                  .AllowAnyHeader()
-                  .AllowCredentials();
+                  .AllowAnyHeader();
         });
 });
 
