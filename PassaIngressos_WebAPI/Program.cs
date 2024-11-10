@@ -60,24 +60,21 @@ builder.Services.AddCors(options =>
             policy.WithOrigins("http://localhost:3000",
                                "https://passa-ingressos.vercel.app")
                   .AllowAnyMethod()
-                  .AllowAnyHeader();
+                  .AllowAnyHeader()
+                  .AllowCredentials();
         });
 });
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"));
-
 // Enable CORS
 app.UseCors("AllowSpecificOrigin");
 
-// Enable HTTPS redirection
-// app.UseHttpsRedirection();
+app.UseSwagger();
+app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"));
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
 app.Run();
