@@ -53,10 +53,12 @@ builder.Services.AddDbContext<DbPassaIngressos>(options =>
 // CORS configuration
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
+    options.AddPolicy("AllowSpecificOrigin",
         policy =>
         {
-            policy.AllowAnyOrigin()
+            // Permite o domínio do frontend
+            policy.WithOrigins("http://localhost:3000",
+                               "https://passa-ingressos.vercel.app")
                   .AllowAnyMethod()
                   .AllowAnyHeader();
         });
@@ -68,7 +70,7 @@ app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"));
 
 // Enable CORS
-app.UseCors("AllowAll");
+app.UseCors("AllowSpecificOrigin");
 
 // Enable HTTPS redirection
 // app.UseHttpsRedirection();
