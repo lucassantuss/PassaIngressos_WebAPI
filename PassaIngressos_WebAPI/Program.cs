@@ -67,15 +67,14 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"));
 
+// Enable CORS
+app.UseCors("AllowAll");
+
 // Enable HTTPS redirection
 // app.UseHttpsRedirection();
-// app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
-// Enable CORS
-app.UseCors("AllowAll");
 
 app.MapControllers();
 
