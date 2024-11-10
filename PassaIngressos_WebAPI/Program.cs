@@ -7,6 +7,31 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// CORS configuration
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:3000",
+                               "https://passa-ingressos.vercel.app",
+                               "https://passa-ingressos.azurewebsites.net",
+                               "https://passa-ingressos-dev.azurewebsites.net/")
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
+        });
+});
+
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Swagger configuration
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Passa Ingressos DEV", Version = "v1" });
+});
+
 // JWT configuration
 var keyJWT = Environment.GetEnvironmentVariable("Jwt_ChaveSecreta_PassaIngressos")
     ?? builder.Configuration["Jwt_ChaveSecreta_PassaIngressos"];
@@ -33,16 +58,6 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Add services to the container.
-builder.Services.AddControllers();
-
-// Swagger configuration
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
-{
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Passa Ingressos DEV", Version = "v1" });
-});
-
 // Database configuration
 var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__db_PassaIngressos")
     ?? builder.Configuration.GetConnectionString("db_PassaIngressos");
@@ -50,27 +65,15 @@ var connectionString = Environment.GetEnvironmentVariable("ConnectionStrings__db
 builder.Services.AddDbContext<DbPassaIngressos>(options =>
             options.UseSqlServer(connectionString));
 
-// CORS configuration
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowSpecificOrigin",
-        policy =>
-        {
-            // Permite o domínio do frontend
-            policy.WithOrigins("http://localhost:3000",
-                               "https://passa-ingressos.vercel.app")
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-        });
-});
-
 var app = builder.Build();
-
-// Enable CORS
-app.UseCors("AllowSpecificOrigin");
 
 app.UseSwagger();
 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "API V1"));
+
+app.UseHttpsRedirection();
+
+// Enable CORS
+app.UseCors("AllowSpecificOrigins");
 
 app.UseAuthentication();
 app.UseAuthorization();
