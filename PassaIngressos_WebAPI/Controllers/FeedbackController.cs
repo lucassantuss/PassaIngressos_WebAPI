@@ -52,6 +52,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para listar todos os feedbacks
+        [AllowAnonymous]
         [HttpGet("ListarFeedbacks")]
         public async Task<IActionResult> ListarFeedbacks()
         {

@@ -245,6 +245,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para listar todos os Eventos
+        [AllowAnonymous]
         [HttpGet("ListarEventos")]
         public async Task<IActionResult> ListarEventos()
         {
@@ -256,6 +257,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para listar os Próximos Eventos
+        [AllowAnonymous]
         [HttpGet("ListarProximosEventos")]
         public async Task<IActionResult> ListarProximosEventos()
         {
@@ -274,6 +276,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para listar os Eventos Relacionados
+        [AllowAnonymous]
         [HttpGet("ListarEventosRelacionados")]
         public async Task<IActionResult> ListarEventosRelacionados()
         {
@@ -297,6 +300,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para pesquisar Evento específico
+        [AllowAnonymous]
         [HttpGet("PesquisarEvento/{idEvento}")]
         public async Task<IActionResult> PesquisarEvento(int idEvento)
         {
@@ -315,6 +319,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para pesquisar Eventos específicos
+        [AllowAnonymous]
         [HttpGet("PesquisarEventosPorNome/{nomeEvento}")]
         public async Task<IActionResult> PesquisarEventosPorNome(string nomeEvento)
         {

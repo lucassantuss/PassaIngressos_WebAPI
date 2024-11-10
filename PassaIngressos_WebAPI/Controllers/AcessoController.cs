@@ -32,6 +32,7 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Perfil
 
         // Método para listar todos os Perfis
+        [AllowAnonymous]
         [HttpGet("ListarPerfis")]
         public async Task<IActionResult> ListarPerfis()
         {
@@ -131,6 +132,7 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Usuário
 
         // Método para criar usuário
+        [AllowAnonymous]
         [HttpPost("CriarUsuario")]
         public async Task<IActionResult> CriarUsuario([FromBody] UsuarioDto usuarioDto)
         {
@@ -204,6 +206,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para redefinir senha
+        [AllowAnonymous]
         [HttpPut("RedefinirSenha")]
         public async Task<IActionResult> RedefinirSenha([FromBody] RedefineSenhaDto redefineSenhaDto)
         {
@@ -226,6 +229,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para validar usuário e realizar o login
+        [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {

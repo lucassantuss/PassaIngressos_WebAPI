@@ -14,11 +14,13 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy.WithOrigins("http://localhost:3000",
+                               "http://localhost:5026",
                                "https://passa-ingressos.vercel.app",
                                "https://passa-ingressos.azurewebsites.net",
                                "https://passa-ingressos-dev.azurewebsites.net/")
                   .AllowAnyMethod()
-                  .AllowAnyHeader();
+                  .AllowAnyHeader()
+                  .AllowCredentials();
         });
 });
 
@@ -29,7 +31,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Passa Ingressos DEV", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "API Passa Ingressos", Version = "v1" });
 });
 
 // JWT configuration
