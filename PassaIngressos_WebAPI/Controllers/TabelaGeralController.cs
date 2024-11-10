@@ -25,6 +25,7 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Tabela Geral
 
         // Método para listar tabelas gerais
+        [AllowAnonymous]
         [HttpGet("ListarTabelasGerais")]
         public async Task<IActionResult> ListarTabelasGerais()
         {
@@ -33,6 +34,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para pesquisar itens da tabela geral por nome da tabela
+        [AllowAnonymous]
         [HttpGet("PesquisarItensPorTabela/{nomeTabela}")]
         public async Task<IActionResult> PesquisarItensPorTabela(string nomeTabela)
         {

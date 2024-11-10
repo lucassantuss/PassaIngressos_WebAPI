@@ -23,6 +23,7 @@ namespace PassaIngressos_WebAPI.Controllers
 
         #region Arquivo
 
+        [AllowAnonymous]
         [HttpGet("PesquisarArquivoPorId/{id}")]
         public async Task<IActionResult> PesquisarArquivoPorId(int id)
         {
@@ -37,6 +38,7 @@ namespace PassaIngressos_WebAPI.Controllers
             return File(arquivo.ConteudoArquivo, arquivo.ContentType);
         }
 
+        [AllowAnonymous]
         [HttpPost("SalvarArquivo")]
         public async Task<IActionResult> SalvarArquivo([FromBody] ArquivoDto arquivoDto)
         {
