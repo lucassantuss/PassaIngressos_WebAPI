@@ -287,9 +287,7 @@ namespace PassaIngressos_WebAPI.Controllers
                 Login = usuario.Login,
 
                 NomePessoa = usuario.Pessoa.Nome,
-                DataNascimento = usuario.Pessoa.DataNascimento != null ? 
-                                 usuario.Pessoa.DataNascimento.Value.ToString("dd/MM/yyyy") :
-                                 "",
+                DataNascimento = usuario.Pessoa.DataNascimento,
                 CPF = usuario.Pessoa.CPF,
                 RG = usuario.Pessoa.RG,
 
