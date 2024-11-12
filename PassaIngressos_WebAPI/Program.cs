@@ -8,7 +8,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS configuration
-/*builder.Services.AddCors(options =>
+builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
         policy =>
@@ -22,18 +22,8 @@ var builder = WebApplication.CreateBuilder(args);
                   .AllowAnyHeader()
                   .AllowCredentials();
         });
-});*/
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        policy =>
-        {
-            policy.AllowAnyOrigin()
-                  .AllowAnyMethod()
-                  .AllowAnyHeader();
-        });
 });
+
 
 // Add services to the container.
 builder.Services.AddControllers();
