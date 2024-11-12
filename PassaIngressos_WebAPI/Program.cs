@@ -8,9 +8,9 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // CORS configuration
-builder.Services.AddCors(options =>
+/*builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll",
+    options.AddPolicy("AllowSpecificOrigins",
         policy =>
         {
             policy.WithOrigins("http://localhost:3000",
@@ -21,6 +21,17 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod()
                   .AllowAnyHeader()
                   .AllowCredentials();
+        });
+});*/
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()
+                  .AllowAnyMethod()
+                  .AllowAnyHeader();
         });
 });
 
