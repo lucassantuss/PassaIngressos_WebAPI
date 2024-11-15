@@ -25,7 +25,7 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Ingresso
 
         // Método para vender/anunciar o Ingresso
-        [Authorize]
+        [AllowAnonymous]
         [HttpPost("AnunciarIngresso")]
         public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
         {
