@@ -140,7 +140,7 @@ namespace PassaIngressos_WebAPI.Controllers
         }
 
         // Método para buscar ingressos por evento
-        [Authorize]
+        [AllowAnonymous]
         [HttpGet("BuscarIngressosPorEvento/{idEvento}")]
         public async Task<IActionResult> BuscarIngressosPorEvento(int idEvento)
         {
