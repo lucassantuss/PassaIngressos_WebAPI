@@ -25,7 +25,7 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Ingresso
 
         // Método para vender/anunciar o Ingresso
-        /*
+        
         [AllowAnonymous]
         [HttpPost("AnunciarIngresso")]
         public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
@@ -65,9 +65,9 @@ namespace PassaIngressos_WebAPI.Controllers
             await _dbPassaIngressos.SaveChangesAsync();
 
             return Ok("Ingresso colocado à venda com sucesso.");
-        }*/
+        }
 
-        // Método novo para vender/anunciar o Ingresso
+       /* // Método novo para vender/anunciar o Ingresso
         [AllowAnonymous]
         [HttpPost("AnunciarIngresso2")]
         public async Task<IActionResult> AnunciarIngresso2([FromBody] IngressoDto novoIngressoDto)
@@ -99,7 +99,7 @@ namespace PassaIngressos_WebAPI.Controllers
             await _dbPassaIngressos.SaveChangesAsync();
 
             return Ok("Ingresso colocado à venda com sucesso.");
-        }
+        }*/
 
         // Método para alterar Ingresso
         [Authorize]
