@@ -25,6 +25,7 @@ namespace PassaIngressos_WebAPI.Controllers
         #region Ingresso
 
         // Método para vender/anunciar o Ingresso
+        /*
         [AllowAnonymous]
         [HttpPost("AnunciarIngresso")]
         public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
@@ -61,6 +62,40 @@ namespace PassaIngressos_WebAPI.Controllers
             };
 
             _dbPassaIngressos.Ingressos.Add(novoIngresso);
+            await _dbPassaIngressos.SaveChangesAsync();
+
+            return Ok("Ingresso colocado à venda com sucesso.");
+        }*/
+
+        // Método novo para vender/anunciar o Ingresso
+        [AllowAnonymous]
+        [HttpPost("AnunciarIngresso2")]
+        public async Task<IActionResult> AnunciarIngresso2([FromBody] IngressoDto novoIngressoDto)
+        {
+            if (novoIngressoDto == null)
+                return BadRequest("Dados do ingresso são obrigatórios.");
+
+            if (string.IsNullOrWhiteSpace(novoIngressoDto.NomeEvento))
+                return BadRequest("Nome do evento é obrigatório.");
+
+            if (novoIngressoDto.DataHoraEvento == default)
+                return BadRequest("Data e hora do evento são obrigatórias.");
+
+            if (novoIngressoDto.Valor <= 0)
+                return BadRequest("O valor do ingresso deve ser maior que 0.");
+
+            var novoIngresso = new IngressoAUXILIAR
+            {
+                NomeEvento = novoIngressoDto.NomeEvento,
+                DataHoraEvento = novoIngressoDto.DataHoraEvento,
+                LocalEvento = novoIngressoDto.LocalEvento,
+                IdArquivoEvento = novoIngressoDto.IdArquivoEvento,
+                IdTgTipoIngresso = novoIngressoDto.IdTipoIngresso,
+                IdPessoaAnunciante = novoIngressoDto.IdPessoaAnunciante,
+                Valor = novoIngressoDto.Valor
+            };
+
+            _dbPassaIngressos.IngressosAuxiliar.Add(novoIngresso);
             await _dbPassaIngressos.SaveChangesAsync();
 
             return Ok("Ingresso colocado à venda com sucesso.");
