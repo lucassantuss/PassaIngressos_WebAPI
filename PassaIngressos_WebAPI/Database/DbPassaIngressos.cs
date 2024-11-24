@@ -23,7 +23,6 @@ namespace PassaIngressos_WebAPI.Database
         public DbSet<Feedback> Feedbacks { get; set; }
         public DbSet<Evento> Eventos { get; set; }
         public DbSet<Ingresso> Ingressos { get; set; }
-        public DbSet<IngressoAUXILIAR> IngressosAuxiliar { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
