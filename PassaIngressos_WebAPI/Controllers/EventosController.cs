@@ -24,9 +24,7 @@ namespace PassaIngressos_WebAPI.Controllers
 
         #region Ingresso
 
-        // Método para vender/anunciar o Ingresso
-
-        [AllowAnonymous]
+        [Authorize]
         [HttpPost("AnunciarIngresso")]
         public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
         {
@@ -58,7 +56,10 @@ namespace PassaIngressos_WebAPI.Controllers
                 IdTgTipoIngresso = novoIngressoDto.IdTipoIngresso,
                 IdPessoaAnunciante = novoIngressoDto.IdPessoaAnunciante,
                 IdEvento = novoEvento.IdEvento,
-                Valor = novoIngressoDto.Valor
+                Valor = novoIngressoDto.Valor,
+
+                IdPessoaComprador = null,
+                Vendido = false,
             };
 
             _dbPassaIngressos.Ingressos.Add(novoIngresso);
