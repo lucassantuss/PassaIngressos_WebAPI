@@ -23,8 +23,8 @@ namespace PassaIngressos_WebAPI.Entity
         [Column("IdPessoaAnunciante")]
         public Pessoa PessoaAnunciante { get; set; }
 
-        [Column("IdPessoaComprador")]
-        public Pessoa PessoaComprador { get; set; }
+        [Column("Id_Pessoa_Comprador")]
+        public int? IdPessoaComprador { get; set; }
 
         [Column("IdEvento")]
         public Evento Evento { get; set; }
@@ -36,9 +36,6 @@ namespace PassaIngressos_WebAPI.Entity
 
         [Column("Id_Pessoa_Anunciante")]
         public int IdPessoaAnunciante { get; set; }
-
-        [Column("Id_Pessoa_Comprador")]
-        public int IdPessoaComprador { get; set; }
 
         [Column("Id_Evento")]
         public int IdEvento { get; set; }
