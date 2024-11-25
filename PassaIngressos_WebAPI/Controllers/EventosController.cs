@@ -27,48 +27,37 @@ namespace PassaIngressos_WebAPI.Controllers
         // Método para vender/anunciar o Ingresso
 
         [AllowAnonymous]
-        [HttpPost("SalvarEvento")]
-        public async Task<IActionResult> SalvarEvento([FromBody] EventoDto novoEventoDto)
-        {
-            if (novoEventoDto == null)
-                return BadRequest("Dados do ingresso são obrigatórios.");
-
-            if (string.IsNullOrWhiteSpace(novoEventoDto.NomeEvento))
-                return BadRequest("Nome do evento é obrigatório.");
-
-            if (novoEventoDto.DataHoraEvento == default)
-                return BadRequest("Data e hora do evento são obrigatórias.");
-
-            var novoEvento = new Evento
-            {
-                NomeEvento = novoEventoDto.NomeEvento,
-                DataHoraEvento = novoEventoDto.DataHoraEvento,
-                LocalEvento = novoEventoDto.LocalEvento,
-                IdArquivoEvento = novoEventoDto.IdArquivoEvento
-            };
-
-            _dbPassaIngressos.Eventos.Add(novoEvento);
-            await _dbPassaIngressos.SaveChangesAsync();
-
-            return Ok(novoEvento.IdEvento); // Retorna o ID do evento salvo
-        }
-
-        [AllowAnonymous]
         [HttpPost("AnunciarIngresso")]
         public async Task<IActionResult> AnunciarIngresso([FromBody] IngressoDto novoIngressoDto)
         {
             if (novoIngressoDto == null)
                 return BadRequest("Dados do ingresso são obrigatórios.");
 
+            if (string.IsNullOrWhiteSpace(novoIngressoDto.NomeEvento))
+                return BadRequest("Nome do evento é obrigatório.");
+
+            if (novoIngressoDto.DataHoraEvento == default)
+                return BadRequest("Data e hora do evento são obrigatórias.");
+
             if (novoIngressoDto.Valor <= 0)
                 return BadRequest("O valor do ingresso deve ser maior que 0.");
 
+            var novoEvento = new Evento
+            {
+                NomeEvento = novoIngressoDto.NomeEvento,
+                DataHoraEvento = novoIngressoDto.DataHoraEvento,
+                LocalEvento = novoIngressoDto.LocalEvento,
+                IdArquivoEvento = novoIngressoDto.IdArquivoEvento
+            };
+
+            _dbPassaIngressos.Eventos.Add(novoEvento);
+            await _dbPassaIngressos.SaveChangesAsync();
 
             var novoIngresso = new Ingresso
             {
                 IdTgTipoIngresso = novoIngressoDto.IdTipoIngresso,
                 IdPessoaAnunciante = novoIngressoDto.IdPessoaAnunciante,
-                IdEvento = novoIngressoDto.IdEvento,
+                IdEvento = novoEvento.IdEvento,
                 Valor = novoIngressoDto.Valor
             };
 
@@ -78,7 +67,39 @@ namespace PassaIngressos_WebAPI.Controllers
             return Ok("Ingresso colocado à venda com sucesso.");
         }
 
+        /* // Método novo para vender/anunciar o Ingresso
+         [AllowAnonymous]
+         [HttpPost("AnunciarIngresso2")]
+         public async Task<IActionResult> AnunciarIngresso2([FromBody] IngressoDto novoIngressoDto)
+         {
+             if (novoIngressoDto == null)
+                 return BadRequest("Dados do ingresso são obrigatórios.");
 
+             if (string.IsNullOrWhiteSpace(novoIngressoDto.NomeEvento))
+                 return BadRequest("Nome do evento é obrigatório.");
+
+             if (novoIngressoDto.DataHoraEvento == default)
+                 return BadRequest("Data e hora do evento são obrigatórias.");
+
+             if (novoIngressoDto.Valor <= 0)
+                 return BadRequest("O valor do ingresso deve ser maior que 0.");
+
+             var novoIngresso = new IngressoAUXILIAR
+             {
+                 NomeEvento = novoIngressoDto.NomeEvento,
+                 DataHoraEvento = novoIngressoDto.DataHoraEvento,
+                 LocalEvento = novoIngressoDto.LocalEvento,
+                 IdArquivoEvento = novoIngressoDto.IdArquivoEvento,
+                 IdTgTipoIngresso = novoIngressoDto.IdTipoIngresso,
+                 IdPessoaAnunciante = novoIngressoDto.IdPessoaAnunciante,
+                 Valor = novoIngressoDto.Valor
+             };
+
+             _dbPassaIngressos.IngressosAuxiliar.Add(novoIngresso);
+             await _dbPassaIngressos.SaveChangesAsync();
+
+             return Ok("Ingresso colocado à venda com sucesso.");
+         }*/
 
         // Método para alterar Ingresso
         [Authorize]
@@ -171,7 +192,7 @@ namespace PassaIngressos_WebAPI.Controllers
                                       LocalEvento = xs.Evento.LocalEvento,
                                       DataHoraEvento = xs.Evento.DataHoraEvento.Value.ToString("dd/MM/yyyy - HH'h'"),
                                       Valor = xs.Valor,
-                                      
+
                                       IdPessoaAnunciante = xs.IdPessoaAnunciante,
                                       IdTipoIngresso = xs.IdTgTipoIngresso,
                                       IdArquivoEvento = xs.Evento.IdArquivoEvento

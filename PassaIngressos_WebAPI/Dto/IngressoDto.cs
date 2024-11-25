@@ -15,6 +15,5 @@
         public int IdArquivoEvento { get; set; }
 
         public decimal? Valor { get; set; }
-        public int IdEvento { get; set; }
     }
 }
